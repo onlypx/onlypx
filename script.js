@@ -148,23 +148,34 @@ if (emailPill) {
 })();
 
 // ============================================
-// Tilt Effect on Cards
+// Tilt Effect on Cards (desktop only)
 // ============================================
 (function() {
+    if (matchMedia('(hover: none)').matches) return;
+
     const cards = document.querySelectorAll('.card, .project-item');
     cards.forEach(card => {
+        let ticking = false;
+
         card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -4;
-            const rotateY = ((x - centerX) / centerX) * 4;
-            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-2px)`;
+            if (ticking) return;
+            ticking = true;
+
+            requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -4;
+                const rotateY = ((x - centerX) / centerX) * 4;
+                card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-2px)`;
+                ticking = false;
+            });
         });
 
         card.addEventListener('mouseleave', () => {
+            ticking = false;
             card.style.transform = '';
         });
     });

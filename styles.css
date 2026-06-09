@@ -300,6 +300,7 @@ a {
     background: none;
     cursor: pointer;
     position: relative;
+    touch-action: manipulation;
 }
 
 .nav-pill::after {
@@ -443,6 +444,7 @@ a {
     transition: all var(--transition);
     position: relative;
     overflow: hidden;
+    touch-action: manipulation;
 }
 
 .social-pill::before {
@@ -987,7 +989,21 @@ select.form-input option {
     }
 
     .header-info {
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .header-role {
         display: none;
+    }
+
+    .header-name {
+        font-size: 12px;
+    }
+
+    .discord-status {
+        font-size: 10px;
     }
 
     .cards-grid {
@@ -1015,9 +1031,32 @@ select.form-input option {
     .hero {
         padding: 48px 0 36px;
     }
+
+    .hero-meta {
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-meta span:not(:last-child)::after {
+        display: none;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 16px 20px 24px;
+    }
+
+    .main {
+        padding: 0 16px;
+    }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .header-nav {
         gap: 2px;
     }
@@ -1027,8 +1066,34 @@ select.form-input option {
         font-size: 11px;
     }
 
+    .nav-pill.clock {
+        display: none;
+    }
+
     .social-pill {
         padding: 6px 12px;
         font-size: 12px;
+    }
+
+    .hero-meta {
+        font-size: 11px;
+        gap: 6px 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    .avatar {
+        width: 30px;
+        height: 30px;
+    }
+
+    .header {
+        gap: 8px;
+        padding: 4px 4px 4px 8px;
+    }
+
+    .nav-pill {
+        padding: 5px 8px;
+        font-size: 10px;
     }
 }
