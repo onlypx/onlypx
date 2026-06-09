@@ -43,6 +43,32 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Page content entrance */
+.hero-tagline,
+.social-links,
+.cards-grid,
+.projects-section {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: textIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.hero-tagline { animation-delay: 0.05s; }
+.social-links { animation-delay: 0.15s; }
+.cards-grid { animation-delay: 0.2s; }
+.projects-section { animation-delay: 0.1s; }
+
+@keyframes textIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 a {
     color: inherit;
     text-decoration: none;
@@ -74,6 +100,10 @@ a {
     gap: 10px;
 }
 
+.bg-gradient {
+    background: linear-gradient(135deg, #6d28d9, #a78bfa);
+}
+
 .avatar {
     width: 36px;
     height: 36px;
@@ -87,6 +117,22 @@ a {
     color: #fff;
     flex-shrink: 0;
     overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block !important;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: none;
 }
 
 .header-info {
@@ -139,6 +185,10 @@ a {
     color: var(--text-muted);
     cursor: default;
     font-size: 11px;
+}
+
+.nav-pill svg {
+    vertical-align: middle;
 }
 
 /* ============================================
@@ -201,15 +251,8 @@ a {
 }
 
 /* ============================================
-   Cards Grid
+   Cards
    ============================================ */
-.cards-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -225,6 +268,13 @@ a {
     margin-bottom: 0;
 }
 
+.cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
 .card-label {
     font-size: 11px;
     font-weight: 500;
@@ -238,6 +288,17 @@ a {
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.7;
+}
+
+.badge img {
+    filter: grayscale(100%) brightness(0.55);
+}
+
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
 /* ============================================
@@ -322,18 +383,45 @@ a {
     font-size: 11px;
 }
 
-.badge-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
+.page-container {
+    width: 100%;
+    position: relative;
 }
 
-/* ============================================
-   Projects
-   ============================================ */
-.projects-section {
-    margin-bottom: 12px;
+.page {
+    display: none;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#page-home {
+    display: block;
+}
+
+.page.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    animation: pageIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.page.leaving {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .projects-list {

@@ -41,8 +41,6 @@ function applyProfile(data) {
 
     if (user.avatar && avatarImg) {
         avatarImg.src = getAvatarUrl(user.avatar);
-    } else if (avatarImg) {
-        avatarImg.src = 'fotos/ChatGPT_Image_13_de_mai._de_2026__22_15_35-removebg-preview.png';
     }
 }
 
@@ -75,7 +73,7 @@ if (emailPill) {
         try {
             await navigator.clipboard.writeText('pedrovoltarelli587@gmail.com');
             const original = emailPill.textContent;
-            emailPill.textContent = 'Copiado!';
+            emailPill.textContent = '✓ Copiado';
             setTimeout(() => {
                 emailPill.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg> Email`;
             }, 1500);
