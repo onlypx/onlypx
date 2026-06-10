@@ -1044,10 +1044,6 @@ select.form-input option {
         font-size: 11px;
     }
 
-    .nav-pill.clock {
-        display: none;
-    }
-
     .cards-grid {
         grid-template-columns: 1fr;
     }
