@@ -14,10 +14,33 @@ updateClock();
 setInterval(updateClock, 1000);
 
 // ============================================
-// Discord Profile (Lanyard API)
+// Discord Profile (Lanyard API) - with localStorage cache
 // ============================================
 const DISCORD_ID = '786773738652958740';
 const LANYARD_API = `https://api.lanyard.rest/v1/users/${DISCORD_ID}`;
+const CACHE_KEY = 'discord_profile_cache';
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+function getCachedProfile() {
+    try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (!cached) return null;
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp > CACHE_DURATION) {
+            localStorage.removeItem(CACHE_KEY);
+            return null;
+        }
+        return data;
+    } catch {
+        return null;
+    }
+}
+
+function setCachedProfile(data) {
+    try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
+    } catch {}
+}
 
 async function fetchDiscordProfile() {
     const res = await fetch(LANYARD_API);
@@ -28,7 +51,7 @@ async function fetchDiscordProfile() {
 }
 
 function getAvatarUrl(avatarHash) {
-    return `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${avatarHash}.png?size=256`;
+    return `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${avatarHash}.png?size=64`;
 }
 
 function applyProfile(data) {
@@ -60,8 +83,14 @@ function applyProfile(data) {
 }
 
 async function updateProfile() {
+    const cached = getCachedProfile();
+    if (cached) {
+        applyProfile(cached);
+        return;
+    }
     try {
         const data = await fetchDiscordProfile();
+        setCachedProfile(data);
         applyProfile(data);
     } catch (err) {
         console.warn('Failed to update Discord profile:', err);
@@ -69,7 +98,7 @@ async function updateProfile() {
 }
 
 updateProfile();
-setInterval(updateProfile, 5 * 60 * 1000);
+setInterval(updateProfile, CACHE_DURATION);
 
 // ============================================
 // Nav active state
