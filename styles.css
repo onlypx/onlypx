@@ -161,7 +161,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 12px;
     background: rgba(17, 17, 17, 0.75);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -172,6 +172,7 @@ a {
     width: 100%;
     max-width: 580px;
     transition: border-color var(--transition), box-shadow var(--transition);
+    box-sizing: border-box;
 }
 
 .header:hover {
@@ -192,9 +193,10 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
-    color: #fff;
+    color: var(--accent);
+    background: rgba(196, 181, 253, 0.1);
     flex-shrink: 0;
     overflow: hidden;
     transition: transform var(--transition), box-shadow var(--transition);
@@ -212,6 +214,17 @@ a {
     border-radius: 50%;
     display: block !important;
     transition: transform var(--transition);
+}
+
+.avatar img[src=""] {
+    display: none;
+}
+
+.avatar:has(img[src=""])::after {
+    content: 'P';
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
 }
 
 .avatar:hover img {
@@ -984,14 +997,26 @@ select.form-input option {
    ============================================ */
 @media (max-width: 640px) {
     .header {
-        margin: 12px 16px 0;
-        width: calc(100% - 32px);
+        margin: 12px 12px 0;
+        width: calc(100% - 24px);
+        padding: 6px 8px 6px 10px;
+    }
+
+    .header-left {
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .avatar {
+        width: 32px;
+        height: 32px;
     }
 
     .header-info {
-        flex-direction: row;
-        align-items: center;
-        gap: 6px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1px;
+        min-width: 0;
     }
 
     .header-role {
@@ -1000,10 +1025,27 @@ select.form-input option {
 
     .header-name {
         font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .discord-status {
         font-size: 10px;
+    }
+
+    .header-nav {
+        gap: 2px;
+        flex-shrink: 0;
+    }
+
+    .nav-pill {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .nav-pill.clock {
+        display: none;
     }
 
     .cards-grid {
@@ -1021,7 +1063,7 @@ select.form-input option {
 
     .project-thumb {
         width: 100%;
-        height: 140px;
+        height: 120px;
     }
 
     .project-tags, .project-links {
@@ -1029,7 +1071,11 @@ select.form-input option {
     }
 
     .hero {
-        padding: 48px 0 36px;
+        padding: 40px 0 32px;
+    }
+
+    .hero-tagline {
+        font-size: 18px;
     }
 
     .hero-meta {
@@ -1044,11 +1090,20 @@ select.form-input option {
         display: none;
     }
 
+    .social-links {
+        gap: 6px;
+    }
+
+    .social-pill {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
     .footer {
         flex-direction: column;
         gap: 12px;
         text-align: center;
-        padding: 16px 20px 24px;
+        padding: 16px 16px 24px;
     }
 
     .main {
@@ -1057,43 +1112,83 @@ select.form-input option {
 }
 
 @media (max-width: 480px) {
-    .header-nav {
-        gap: 2px;
+    .header {
+        margin: 10px 10px 0;
+        width: calc(100% - 20px);
     }
 
-    .nav-pill {
-        padding: 6px 10px;
+    .avatar {
+        width: 30px;
+        height: 30px;
+    }
+
+    .header-name {
         font-size: 11px;
     }
 
-    .nav-pill.clock {
-        display: none;
+    .nav-pill {
+        padding: 5px 8px;
+        font-size: 10px;
     }
 
     .social-pill {
         padding: 6px 12px;
-        font-size: 12px;
+        font-size: 11px;
+    }
+
+    .hero {
+        padding: 32px 0 28px;
+    }
+
+    .hero-tagline {
+        font-size: 16px;
     }
 
     .hero-meta {
         font-size: 11px;
         gap: 6px 12px;
     }
+
+    .card {
+        padding: 18px;
+    }
+
+    .card-label {
+        font-size: 10px;
+    }
+
+    .card-text {
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 360px) {
-    .avatar {
-        width: 30px;
-        height: 30px;
+    .header {
+        margin: 8px 8px 0;
+        width: calc(100% - 16px);
+        padding: 4px 6px 4px 8px;
     }
 
-    .header {
-        gap: 8px;
-        padding: 4px 4px 4px 8px;
+    .avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .header-name {
+        font-size: 10px;
     }
 
     .nav-pill {
-        padding: 5px 8px;
+        padding: 4px 6px;
+        font-size: 9px;
+    }
+
+    .hero-tagline {
+        font-size: 15px;
+    }
+
+    .social-pill {
+        padding: 6px 10px;
         font-size: 10px;
     }
 }

@@ -42,6 +42,9 @@ function applyProfile(data) {
 
     if (user.avatar && avatarImg) {
         avatarImg.src = getAvatarUrl(user.avatar);
+        avatarImg.onerror = () => {
+            avatarImg.style.display = 'none';
+        };
     }
 
     if (statusEl) {
